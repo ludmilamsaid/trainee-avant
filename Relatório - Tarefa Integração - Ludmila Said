@@ -1,0 +1,38 @@
+Relatório - Atividade Semanal Integração de Sistemas
+Trainee - Ludmila Miguel Said Carvalho
+
+
+
+Para conseguir cumprir a tarefa de desenhar poligonos e círculos no turtlesim, primeiramente tive que relembrar algumas
+propriedades geométricas dessas figuras. No caso dos polígonos, todas as arestas têm o mesmo comprimento, e a soma dos ângulos
+externos deve ser 360°. Sendo assim, utilizei a relação entre o número de lados de um polígono e seu ângulo externo que é expressa 
+pela fórmula:
+ângulo externo = 360/n , onde o n é o número de lados do poligono.
+
+Inicialmente, peguei os scripts de como fazer a tartaruga andar em linha reta e do movimento rotacional no notion, para tentar 
+entender como funcionava o turtlesim. Nesse sentido, o meu primeiro objetivo era fazer a tartaruga fazer um giro com o ângulo pré 
+estabelecido e depois parar e andar em linha reta. Em seguida, após conseguir esse feito, coloquei esses movimentos em um loop com a 
+quantidade de lados do polígono, no qual, a tartaruga realiza uma rotação em seu próprio eixo equivalente ao ângulo externo e, em seguida,
+movimenta-se linearmente por uma distância especificada pelo usuário. 
+
+Após fazer vários testes com polígonos, velocidade angular e linear diferentes, percebi que havia pequenos desvios nos ângulos e no 
+comprimento dos lados, isso pode ser causado pela baixa precisão de cálculos como do tempo (t1-t0), e por não estar pegando a posição 
+absoluta da tartaruga. Sendo assim, para melhorar a precisão dos movimentos, utilizei o tópico pose. Então implementei uma verificação 
+baseada nas coordenadas absolutas da tartaruga, utilizando:
+Distância=raizq((xfinal​−xinicial​)^2 + (yfinal​−yinicial​)^2)​
+
+Para melhorar a precisão foi feito a:
+Substituição da dependência temporal por cálculos baseados nas coordenadas absolutas da tartaruga.
+
+Integração da posição da tartaruga através do tópico 
+/turtle1/pose, garantindo maior precisão nos cálculos de distância.
+
+Após a implementação dos polígonos, criei a lógica para desenhar o círculo quando o usuário digita o número de lados maior que 100. 
+A lógica baseia-se no cálculo da circunferência utilizando o raio fornecido pelo usuário, e na definição de velocidades linear e angular 
+para o movimento circular.  fórmula da circunferência 2×π×raio, em que . Em seguida, define-se a velocidade linear da tartaruga com base na 
+velocidade angular fornecida multiplicada pelo raio, sendo a velocidade angular negativa para girar em sentido anti-horário. A tartaruga é 
+movida em um laço, publicando comandos de velocidade no tópico /turtle1/cmd_vel até que a distância percorrida seja igual ou superior à 
+circunferência. Quando a tartaruga completa o percurso, o movimento é interrompido e ela é parada ao definir a velocidade linear como zero.
+
+
+
